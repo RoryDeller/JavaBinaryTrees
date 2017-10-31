@@ -1,5 +1,4 @@
-public class BinaryTree
-{
+public class BinaryTree {
 
     private BinaryNode root;
 
@@ -11,34 +10,53 @@ public class BinaryTree
         return root;
     }
 
-    public void addNode(String value) {
+    public void addNode(String value, boolean recursively) {
         if (root == null) {
             root = new BinaryNode(value);
-        }
-        else
-        {
-            addNodeRecursively(root, value);
+        } else {
+            if (recursively) {
+                addNodeRecursively(root, value);
+            } else {
+                addNodeIteratively(root, value);
+            }
         }
     }
 
-    public void addNodeRecursively(BinaryNode node, String value)
-    {
-        if (value.compareTo(node.getValue()) < 0)
-        {
-            if (node.getLeftChild() == null)
-            {
+    public void addNodeRecursively(BinaryNode node, String value) {
+        if (value.compareTo(node.getValue()) < 0) {
+            if (node.getLeftChild() == null) {
                 node.setLeftChild(new BinaryNode(value));
-            }
-            else
-            {
+            } else {
                 addNodeRecursively(node.getLeftChild(), value);
             }
-        }
-        else
-        {
+        } else {
 
             /* FILL IN THIS GAP */
 
         }
     }
+
+    public void addNodeIteratively(BinaryNode node, String value) {
+        BinaryNode newNode = new BinaryNode(value);
+        while (true) {
+            if (newNode.getValue().compareTo(node.getValue()) < 0) {
+                if (node.getLeftChild() == null) {
+                    node.setLeftChild(newNode);
+                    break;
+                } else {
+                    node = node.getLeftChild();
+                }
+            } else {
+                if (node.getRightChild() == null) {
+                    node.setRightChild(newNode);
+                    break;
+                } else {
+                    node = node.getRightChild();
+                }
+            }
+        }
+    }
+
+
 }
+

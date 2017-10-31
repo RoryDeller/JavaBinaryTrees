@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+
 public class Main
 {
     public static void main(String[] args)
@@ -6,15 +8,20 @@ public class Main
 
         /* INSERT WORDS HERE */
 
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
-        tree.addNode("");
+        tree.addNode("Pear", false);
+        tree.addNode("Grape", false);
+        tree.addNode("Pineapple", false);
+        tree.addNode("Lemon", false);
+        tree.addNode("Grapefruit", false);
+        tree.addNode("Lime", false);
+        tree.addNode("Apple", false);
+        tree.addNode("Strawberry", false);
+        tree.addNode("Raspberry", false);
+        tree.addNode("Melon", false);
+        tree.addNode("Kiwi", false);
+        tree.addNode("Blueberry", false);
+        tree.addNode("Blackcurrant", false);
+        tree.addNode("Banana", false);
 
         /* - - - - - - - - - */
 
@@ -28,6 +35,10 @@ public class Main
 
         System.out.println("Post-Order:");
         postOrderTraverse(tree.getRoot());
+        System.out.println();
+
+        System.out.println("Stack-Printed:");
+        stackPrint(tree.getRoot());
         System.out.println();
     }
 
@@ -48,5 +59,48 @@ public class Main
         /* FILL IN THIS GAP */
 
     }
+
+    public static void stackPrint(BinaryNode root)
+    {
+        ArrayDeque<BinaryNode> stack = new ArrayDeque<>();
+        BinaryNode node = root;
+
+        while (node != null) {
+            stack.push(node);
+            node = node.getLeftChild();
+        }
+
+        while (stack.size() > 0)
+        {
+
+            node = stack.pop();
+            String line = "";
+            for (BinaryNode parent = node.getParent();
+                 parent != null;
+                 parent = parent.getParent())
+            {
+                line += "----";
+            }
+            line += "-> " + node.getValue();
+
+            System.out.println(line);
+
+            if (node.getRightChild() != null)
+            {
+                node = node.getRightChild();
+                while (node != null)
+                {
+                    stack.push(node);
+                    node = node.getLeftChild();
+                }
+            }
+
+        }
+
+
+
+    }
+
+
 
 }
